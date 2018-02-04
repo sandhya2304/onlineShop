@@ -2,13 +2,24 @@ package com.myecom.onshop_backend.dto;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+
+@Entity
 public class Category implements Serializable
 {
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String description;
 	private String name;
+	@Column(name="image_url")
 	private String imageURL;
+	@Column(name="is_active")
 	private boolean active =true;
 	
 	
@@ -59,5 +70,12 @@ public class Category implements Serializable
 	public Category() {
 		// TODO Auto-generated constructor stub
 	}
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", description=" + description + ", name=" + name + ", imageURL=" + imageURL
+				+ ", active=" + active + "]";
+	}
+	
+	
 
 }

@@ -11,7 +11,11 @@ public interface CategoryDao
 
 	public Category get(int id);
 	
+	public boolean addCategory(Category category);
 	
+	public boolean updateCategory(Category category);
+	
+	public boolean deleteCategory(Category category);
 	
 	
 
