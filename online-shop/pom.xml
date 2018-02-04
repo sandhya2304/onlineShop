@@ -17,6 +17,14 @@
   
   <dependencies>
   
+  <!-- linking backend  -->
+  
+  <dependency>
+  <groupId>com.myecom</groupId>
+  <artifactId>onshop-backend</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+    
+  </dependency>
   
   <!-- spring depencdy -->
   
