@@ -4,10 +4,10 @@
     <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
     
     
-    <spring:url var="css" value="/resources/css/" />
-    <spring:url var="images" value="/resources/images/" />
-    <spring:url var="js" value="/resources/css/" />
-    
+   <spring:url var="css" value="/resources/css" />
+<spring:url var="js" value="/resources/js" />
+<spring:url var="images" value="/resources/images" />
+
     <c:set var="contextRoot" value="${pageContext.request.contextPath }" />
 
 <!DOCTYPE html>
@@ -25,6 +25,7 @@
     <script>
     
        window.menu = '${title }';
+       window.contextRoot = '${contextRoot}';
      
     </script>
 
@@ -34,6 +35,9 @@
       <!-- bootsrap readable theme -->
  <!--  <link href="${css}/bootstrap-readable-theme.css" rel="stylesheet"> -->  
     
+    
+<!-- Bootstrap datatable plugin -->
+<link href="${css}/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="${css}/shop-homepage.css" rel="stylesheet">
@@ -71,6 +75,13 @@
 			<c:if test="${userClickAllProducts==true or userClickCategoryProducts==true}">
 				<%@include file="listProducts.jsp"%>
 			</c:if>
+			
+			
+			<!-- loading only when all pategoryroducts or c  -->
+			<c:if test="${userClickShowProduct == true}">
+				<%@include file="singleProduct.jsp"%>
+			</c:if>
+	
 	
 
 		</div>
@@ -82,7 +93,15 @@
 		<!-- Bootstrap core JavaScript -->
 		<script src="${js }/jquery.js"></script>
 		<script src="${js }/bootstrap.min.js"></script>
+		
+		<script src="${js }/jquery.dataTables.js"></script>
 
+             <!-- datatable botstrap -->
+        	<script src="${js }/dataTables.bootstrap.js"></script>
+        
+         <!-- bootbox -->
+		<script src="${js}/bootbox.min.js"></script>
+      
 		<!-- self coded javascript link here-->
 		<script src="${js}/myapp.js"></script>
 
