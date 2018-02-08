@@ -77,9 +77,14 @@
 			</c:if>
 			
 			
-			<!-- loading only when all pategoryroducts or c  -->
+			<!-- loading only when user click show products  -->
 			<c:if test="${userClickShowProduct == true}">
 				<%@include file="singleProduct.jsp"%>
+			</c:if>
+	
+    	<!-- loading only when all mange products  -->
+			<c:if test="${userClickManageProducts == true}">
+				<%@include file="manageProducts.jsp"%>
 			</c:if>
 	
 	

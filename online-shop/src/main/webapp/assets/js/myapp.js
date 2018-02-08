@@ -8,6 +8,9 @@ $(function(){
 	   case 'contact us':
 		     $('#contact').addClass('active');
 		     break;
+	   case 'manage Products':
+		     $('#manageProducts').addClass('active');
+		     break;
 	   case 'All Products':
 		     $('#listProducts').addClass('active');
 		     break;
@@ -83,18 +86,17 @@ $(function(){
 		    		    	   data: 'id',
 		    		    	   mRender: function(data,type,row)
 		    		    		   {
-		    		    			   var str = '';
-		    		    			   str +='<a href="'+window.contextRoot+'/show/ '+data+'/product" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a> &#160; ';
-		    		    			
-		    		    			   if(row.quantity < 1)
-		    		    				   {
-		    		    				   str +='<a href="javascript:void(0)" class="btn btn-success" disabled><span class="glyphicon glyphicon-shopping-cart"></span></a>';
-		    		    				   }
-		    		    			   else
-		    		    				   {
-		    		    				   str +='<a href="'+window.contextRoot +'/cart/add/'+data+'/product" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
-		    		    				   }
-		    		    			   
+		    		    		   var str = '';
+		      						str +='<a href="'+window.contextRoot+'/show/ '+data+'/product" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a> &#160; ';
+		      						
+		      						if(row.quantity < 1)
+		      							{
+		      							str +='<a href="javascript:void(0)" class="btn btn-success disabled"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+		      							}
+		      						else
+		      							{
+		      							str +='<a href="'+window.contextRoot+'/cart/add/ '+data+'/product" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+		      							}
 		    		    			  
 		    		    			   
 		    		    			   return str;
@@ -107,5 +109,20 @@ $(function(){
 		    });
 		 
 		 }
+	 
+	 // dismiss the alert after 3 seconds
+	 
+	 var $alert=$('.alert');
+	 
+	 if($alert.length)
+		 {
+		   
+		   setTimeout(function(){
+			   $alert.fadeOut('slow');			   
+		   },3000)
+		 
+		 }
+	 
+	 
 		 
 });
