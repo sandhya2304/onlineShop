@@ -21,9 +21,10 @@ $(function(){
 		    
 	             break;
 	 }
+	 //-------------------------------------------------------------------------------------------
+	 //code for jquery data table to fetch all data from db in product table
+	//---------------------------------------------------------------------------------------------
 	 
-	 //code for jquery data table 
-	
 	 var $table=$('#productListTable');
 	 
 	 if($table.length)
@@ -109,7 +110,7 @@ $(function(){
 		    });
 		 
 		 }
-	 
+	 //----------------------------------------------------------------------------------
 	 // dismiss the alert after 3 seconds
 	 
 	 var $alert=$('.alert');
@@ -122,7 +123,163 @@ $(function(){
 		   },3000)
 		 
 		 }
+	 //-----------------------------------------------------------------------------------
 	 
+	
+	 //-----------------------------------------------------------------
+	 // data table for admin to show all data from db in admin table
+	 //---------------------------------------------------------------
 	 
-		 
+ var $adminproductsTable=$('#adminproductsTable');
+	 
+	 if($adminproductsTable.length)
+		 {
+		    
+		    var jsonUrl= window.contextRoot+'/json/data/admin/all/products';
+		    
+		  
+		    
+		    $adminproductsTable.DataTable({
+		    	
+		    	lengthMenu: [[10,30,50-1], ['10 records','30 records' ,'50 records ','all ']],
+	    		 pageLength : 30,
+		    	ajax:{
+		    		
+		    		url : jsonUrl,
+					dataSrc : ''
+		    	},
+		    	columns: [
+		    		{
+		    			data: 'id'
+		    		},
+		    		       {
+		    		    	 data: 'code',
+		    		    	 mRender: function(data,type,row)
+		    		    	 {
+		    		    		 
+		    		    		 return '<img src="'+window.contextRoot+'/resources/images/'+data+'.jpg" class="adminDataTableImg" />';
+		    		    	 }
+		    		       }, 
+		    		 
+		    		       {
+		    		    	   data: 'name'
+		    		       },
+		    		       {
+		    		    	   data: 'brand'
+		    		       },
+		    		       
+		    		       {
+		    		    	   data: 'quantity',
+		    		    	   mRender: function(data,type,row)
+		    		    	   {
+		    		    		   if(data < 1)
+		    		    			   {
+		    		    			      return "<span style='color:red'>Out of Stock</span>";
+		    		    			   }
+		    		    		   return data;
+		    		    	   }
+		    		       },
+		    		       {
+		    		    	   data: 'unitPrice',
+		    		    	   mRender: function(data,type,row)
+		    		    	   {
+		    		    		   return '&#8377;' +data
+		    		    	   }
+		    		       },
+		    		       {
+		      					 data : 'active',
+		      					 bSortable:false,
+		      					 mRender:function(data,type,row)
+		      					 {
+		      						 var str = '';
+		      						 
+		      						if(data) {											
+										str += '<label class="switch"> <input type="checkbox" value="'+row.id+'" checked="checked">  <div class="slider round"> </div></label>';
+										
+									}else {
+										str += '<label class="switch"> <input type="checkbox" value="'+row.id+'">  <div class="slider round"> </div></label>';
+									}
+						          
+		      						 return str;
+		      					 }
+		      						
+		      				 },
+		      				 {
+		      					 data: 'id',
+		      					bSortable:false,
+		      					mRender: function(data,type,row)
+		      					{
+		      						var str = '';
+		      						str += '<a href="'+window.contextRoot+'/manage/'+data+'/product" class="btn btn-warning"> ';
+		   				            str +=  '<span class="glyphicon glyphicon-pencil"></span> </a>'  
+		   				                     
+		      						return str;
+		      						
+		      					}
+		      					 
+		      				 }
+		    			       
+		    				 ],
+		    				 
+		    				 initComplete: function()
+		    				 {
+		    					 //toggle button activate and deactivate the product
+		    					 var api =this.api();
+		    					 api.$('.switch input[type="checkbox"]').on('change',function ()
+		    				    		 {
+		    		    	           var checkbox= $(this);
+		    		    	           var checked= checkbox.prop('checked');
+		    		    	           var dmsg = (checked)? 'you want to activate your product?' : 
+		    		    	        	                      'you want to deactivate?' ;
+		    		    	           var value= checkbox.prop('value');
+		    		    	           
+		    		    	           
+		    		    	           bootbox.confirm({
+		    		    	        	   size: 'medium' ,
+		    		    	        	   title: 'Product Activation and deactivation' ,
+		    		    	        	   message: dmsg ,
+		    		    	        	   callback : function (confirmed)
+		    		    	        	       {
+		    		    	        		      if(confirmed)
+		    		    	        		    	  {
+		    		    	        		    	     console.log(value);
+		    		    	        		    	     //json url here from managementcontroller
+		    		    	        		    	     var activationUrl=window.contextRoot + '/manage/product/' +value + '/activation' ;
+		    		    	        		    	     
+		    		    	        		    	     $.post(activationUrl,function(data)
+		    		    	        		    	        {
+		    		  	        		    	    
+		    		    	        		    	    	bootbox
+		        		    	        		    	     .alert({
+																	size : 'medium',
+																	title : 'information',
+																	message : data		
+																																					        		    	        		    	    																		
+	        		    	        		    	    	 
+		        		    	        		    	     });
+		                                        	 });
+			    	       		    	        		    	    
+		    		    	        		    	  }
+		    		    	        		      else
+		    		    	        		    	  {
+		    		    	        		    	  
+		    		    	        		    	     checkbox.prop('checked',!checked);
+		    		    	        		    	  }
+		    		    	        		     
+		    		    	        	       }
+		    		    	        	   
+		    		    	        	   
+		    		    	           });
+		    		    	        
+		    		    		 });
+		    		     
+		    					 
+		    				 }
+		    		 
+		    		 
+		    	 });
+		    	 }
+		     
+		     
+	//-----------------------------------------------------------------	 
 });

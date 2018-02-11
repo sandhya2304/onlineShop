@@ -82,7 +82,7 @@
                  <label class="control-label col-md-4" for="quantity"> Enter Qty Available:</label>
                  <div class="col-md-8">
                    
-                    <f:input type="number" path="unitPrice" id="unitPrice" placeholder="Product unitPrice" class="form-control" />
+                    <f:input type="number" path="quantity" id="quantity" placeholder="Product quantity" class="form-control" />
                     
                  
                  </div>
@@ -148,6 +148,56 @@
    
    </div>
 
-
+   <div class="row">
+   
+   
+      <div class="col-xs-12">
+        <h3>Available Products</h3>
+        <hr/>
+      </div>
+       <div class="col-xs-12">
+       
+         <div style="overflow:auto;">
+         
+                   <!-- product table for admin -->
+         
+			<table id="adminproductsTable" class="table table-condensed table-bordered">
+							
+				<thead>					
+					<tr>					
+						<th>Id</th>
+						<th>&#160;</th>
+						<th>Name</th>
+						<th>Brand</thBrand>
+						<th>Qty. Avail</th>
+						<th>Unit Price</th>
+						<th>Activate</th>				
+						<th>Edit</th>
+					</tr>				
+				</thead>
+				
+			
+				
+				
+				<tfoot>
+					<tr>					
+						<th>Id</th>
+						<th>&#160;</th>
+						<th>Name</th>
+						<th>Brand</th>
+						<th>Qty. Avail</th>
+						<th>Unit Price</th>
+						<th>Activate</th>				
+						<th>Edit</th>
+					</tr>									
+				</tfoot>
+				
+							
+			</table>
+      
+        </div>
+   
+   
+   </div>
 
 </div>

@@ -35,7 +35,6 @@ public class Product
 		@Min(value = 1, message="Please select at least one value!")
 		private double unitPrice;
 		private int quantity;
-		@JsonIgnore
 		@Column(name = "is_active")	
 		private boolean active=true;
 		@Column(name = "category_id")

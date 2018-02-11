@@ -101,6 +101,7 @@ footer {           /* claass  of footer*/
 
 /*toogle switch*/
 
+/* The switch - the box around the slider */
 .switch {
   position: relative;
   display: inline-block;
@@ -108,10 +109,8 @@ footer {           /* claass  of footer*/
   height: 34px;
 }
 
-/* Hide default HTML checkbox */
 .switch input {display:none;}
 
-/* The slider */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -120,6 +119,7 @@ footer {           /* claass  of footer*/
   right: 0;
   bottom: 0;
   background-color: #ccc;
+  -webkit-transition: .4s;
   transition: .4s;
 }
 
@@ -131,13 +131,30 @@ footer {           /* claass  of footer*/
   left: 4px;
   bottom: 4px;
   background-color: white;
-  transition: .5s;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: #1863E6;
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
 }
 
 input:checked + .slider:before {
-  transform: translateX(20px);
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/*--------- END --------*/
