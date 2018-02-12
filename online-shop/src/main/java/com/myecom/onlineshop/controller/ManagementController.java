@@ -57,17 +57,52 @@ public class ManagementController
 			 
 			 if(operation.equals("product"))
 			 {
-				 mv.addObject("message","Product submited sucefully!!!");
+				 mv.addObject("message","Product submited sucessfully!!!");
+			 }
+			 else if(operation.equals("category"))
+			 {
+				 mv.addObject("message","Category submited sucessfully!!!");
 			 }
 		 }	
 		
 		return mv;
 	}
+	
+	
+	@RequestMapping(value="/{id}/product",method=RequestMethod.GET)
+	public ModelAndView showEditProducts(@PathVariable int id )
+	{
+		ModelAndView mv=new ModelAndView("page");
+		
+		mv.addObject("title","manage Products");
+		mv.addObject("userClickManageProducts",true);
+		
+		//fetch the product from db
+		Product fProduct=productDao.get(id);
+		//set the product fetch  from db
+		mv.addObject("product",fProduct);
+		
+		
+		return mv;
+	}
+	
+	
+	
+	
+	
+	
+	
 	//returning categories for all the request mapping
 	@ModelAttribute("categories")
-	public List<Category> getCategory()
+	public List<Category> getCategories()
 	{
 		return categoryDao.listAll();
+	}
+	
+	@ModelAttribute("category")
+	public Category getCatgeory()
+	{
+		return new Category();
 	}
 	
 	@RequestMapping(value="/products",method=RequestMethod.POST)
@@ -75,8 +110,19 @@ public class ManagementController
 			Model model,HttpServletRequest request)
 	{
 		
-		new ProductValidator().validate(mProduct,result);
-		
+		if(mProduct.getId() == 0)
+		{
+		  new ProductValidator().validate(mProduct,result);
+		}
+		else
+		{
+			if(!mProduct.getFile().getOriginalFilename().equals(""))
+			{
+				new ProductValidator().validate(mProduct,result);
+			}
+		}
+		  
+		  
 		//check if there errors
 		if(result.hasErrors())
 		{
@@ -89,7 +135,16 @@ public class ManagementController
 		
 		logger.info(mProduct.toString());
 		
-		productDao.add(mProduct);
+		if(mProduct.getId() == 0)
+		{
+			//cerate a new product if id is 0
+		   productDao.add(mProduct);
+		}
+		else
+		{
+			//update the product if available id not 0
+			productDao.update(mProduct);
+		}
 		
 		//for image
 		if(!mProduct.getFile().getOriginalFilename().equals(""))
@@ -99,6 +154,15 @@ public class ManagementController
 		}
 		
 		return "redirect:/manage/products?operation=product";
+	}
+	
+	
+	@RequestMapping(value="/category",method=RequestMethod.POST)
+	public String handleCategorySubmiison(@ModelAttribute Category category)
+	{
+		categoryDao.addCategory(category);
+		
+		return "redirect:/manage/products?operation=category";
 	}
 	
 	@RequestMapping(value="/product/{id}/activation",method=RequestMethod.POST)
