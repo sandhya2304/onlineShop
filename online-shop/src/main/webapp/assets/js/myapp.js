@@ -283,9 +283,7 @@ $(function(){
 		     
 	//-----------------------------------------------------------------	 
 	 
-	 
-	 
-	 
+ 
 	//validation code for category
 
      var $categoryForm = $('#categoryForm');
@@ -325,7 +323,7 @@ $(function(){
 		   },
 		   errorElement: 'em',
 		   errorPlacement: function(error,element){
-			   //add the class of help-block
+			   //add the class of help-blo+ck
 			   error.addClass('help-block');
 			   //add the error element after the input eleemnt
 			   error.insertAfter(element);
@@ -335,5 +333,5 @@ $(function(){
 	   });
 	   
      }
-//-----------------------------------------------------------------------------------------------
+//-------------------------------------------------
 });
