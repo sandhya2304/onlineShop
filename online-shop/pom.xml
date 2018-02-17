@@ -8,12 +8,13 @@
   <name>online-shop Maven Webapp</name>
   <url>http://maven.apache.org</url>
   
-  <properties>
-    <javaee.version>7.0</javaee.version>
-    <spring-version>4.3.6.RELEASE</spring-version>
-  </properties>
-  
-  
+  <!-- Version information will be stored here -->
+	<properties>
+		<javaee.version>7.0</javaee.version>
+		<spring.version>4.3.6.RELEASE</spring.version>
+		<spring.security.version>4.2.2.RELEASE</spring.security.version>
+		
+	</properties>
   
   <dependencies>
   
@@ -28,51 +29,74 @@
   
   <!-- spring depencdy -->
   
+<!-- JAVA EE -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>${javaee.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-webmvc</artifactId>
-    <version>${spring-version}</version>
-</dependency>
+		<!-- JUNIT -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
 
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-core</artifactId>
-    <version>${spring-version}</version>
-    <exclusions>
-       <exclusion>
-           <groupId>commons-logging</groupId>
-           <artifactId>commons-logging</artifactId>     
-       </exclusion> 
-    </exclusions>
-   
-</dependency>
-  
-  <dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-context</artifactId>
-    <version>${spring-version}</version>
-</dependency>
-  
-  
-  <!-- jstl -->
-  
+		<!-- SPRING -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
-<dependency>
-    <groupId>jstl</groupId>
-    <artifactId>jstl</artifactId>
-    <version>1.2</version>
-</dependency>
-  
-  
-  
-  <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
- <dependency>
-    <groupId>javax</groupId>
-    <artifactId>javaee-api</artifactId>
-    <version>${javaee.version}</version>
-    <scope>provided</scope>
-</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- JSTL -->
+
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- Spring Webflow -->
+	    <dependency>
+	        <groupId>org.springframework.webflow</groupId>
+	        <artifactId>spring-webflow</artifactId>
+	        <version>2.4.4.RELEASE</version>
+	    </dependency>
+	    
+	    <!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
   
     
   </dependencies>

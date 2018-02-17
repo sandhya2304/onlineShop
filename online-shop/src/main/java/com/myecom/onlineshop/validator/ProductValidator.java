@@ -5,6 +5,7 @@ import org.springframework.validation.Validator;
 
 import com.myecom.onshop_backend.dto.Product;
 
+
 public class ProductValidator implements Validator
 {
 
