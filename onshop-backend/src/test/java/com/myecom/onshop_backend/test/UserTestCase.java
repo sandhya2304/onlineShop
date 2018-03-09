@@ -144,7 +144,7 @@ public class UserTestCase
 		
 		assertEquals("Failed to add cart",true,userDao.addUser(user));
 	
-	}*/
+	}
 	@Test
 	public void testUpdateCart()
 	{
@@ -158,7 +158,7 @@ public class UserTestCase
 		assertEquals("Failed to update cart",true,userDao.updateCart(cart));
 		
 		
-	}
+	}*/
 	
 	
 	/*public void testAddAddress()

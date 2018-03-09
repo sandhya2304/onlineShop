@@ -96,7 +96,7 @@
                  <div class="col-md-8">
                    
                     <f:input type="file" path="file" id="file"  class="form-control" />
-                    <f:errors path="file" cssClass="help-block" element="em"></f:errors>
+                   <!-- <f:errors path="file" cssClass="help-block" element="em"></f:errors>  -->
                  
                  </div>
                

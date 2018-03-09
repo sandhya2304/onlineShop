@@ -17,7 +17,7 @@ public interface UserDao
 	
 	public boolean addUser(User user);
 	
-	public boolean updateCart(Cart cart);
+	
 	
 
 }

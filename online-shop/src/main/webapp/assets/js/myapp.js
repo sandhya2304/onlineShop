@@ -11,6 +11,9 @@ $(function(){
 	   case 'manage Products':
 		     $('#manageProducts').addClass('active');
 		     break;
+	   case 'cart page':
+		     $('#userCart').addClass('active');
+		     break;
 	   case 'All Products':
 		     $('#listProducts').addClass('active');
 		     break;
@@ -21,6 +24,19 @@ $(function(){
 		    
 	             break;
 	 }
+	 //-------
+	 
+	// for handling CSRF token
+		var token = $('meta[name="_csrf"]').attr('content');
+		var header = $('meta[name="_csrf_header"]').attr('content');
+		
+		if((token!=undefined && header !=undefined) && (token.length > 0 && header.length > 0)) {		
+			// set the token header for the ajax request
+			$(document).ajaxSend(function(e, xhr, options) {			
+				xhr.setRequestHeader(header,token);			
+			});				
+		}
+		
 	 //-------------------------------------------------------------------------------------------
 	 //code for jquery data table to fetch all data from db in product table
 	//---------------------------------------------------------------------------------------------
@@ -95,6 +111,12 @@ $(function(){
 		      							str +='<a href="javascript:void(0)" class="btn btn-success disabled"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
 		      							}
 		      						else
+		      							
+		      							if(userRole == 'ADMIN')
+		      								{
+		      								str +='<a href="'+window.contextRoot+'/manage/add/ '+data+'/product" class="btn btn-warning"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+		      								}
+		      							else	
 		      							{
 		      							str +='<a href="'+window.contextRoot+'/cart/add/ '+data+'/product" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
 		      							}
@@ -333,5 +355,88 @@ $(function(){
 	   });
 	   
      }
-//-------------------------------------------------
+   //------------------------------------------------------------------------------------------
+   /*validating the loginform*/
+	
+	// validating the product form element	
+	// fetch the form element
+	$loginForm = $('#loginForm');
+	
+	if($loginForm.length) {
+		
+		$loginForm.validate({			
+				rules: {
+					username: {
+						required: true,
+						email: true
+						
+					},
+					password: {
+						required: true
+					}				
+				},
+				messages: {					
+					username: {
+						required: 'Please enter your email!',
+						email: 'Please enter a valid email address!'
+					},
+					password: {
+						required: 'Please enter your password!'
+					}					
+				},
+				errorElement : "em",
+				errorPlacement : function(error, element) {
+					// Add the 'help-block' class to the error element
+					error.addClass("help-block");
+					
+					// add the error label after the input element
+					error.insertAfter(element);
+				}				
+			});
+		
+	}
+	  //-------------------------------------------------
+	  //---handling the click event of refresh cart button
+	
+	$('button[name="refreshCart"]').click(function(){
+		
+		//fetch the cartLine id
+		
+		var cartLineId=$(this).attr('value');
+		var countElement= $('#count_' +cartLineId);
+		
+		var originalCount= countElement.attr('value');
+		var currentCount= countElement.val();
+		
+		
+		//work only when the count has changed
+		if(currentCount < 1 || currentCount >3)
+		  {
+			//reverting back to the original count
+			//user has given value below 1 and above 3 
+			countElement.val(originalCount);
+			bootbox.alert({
+				
+				size: 'medium', 
+				title: 'Error',
+				message: 'Product count min 1 and max 3!'
+				
+			});			
+		  }
+		else
+			{ 
+			   
+			   var updateURL = window.contextRoot + '/cart/' +cartLineId +'/update?count=' + currentCount; 
+			  //forward it to the controller
+			   
+			   window.location.href= updateUrl;
+			   
+			   
+			}
+		
+		
+	})
+	
+
+	  //-------------------------------------------------
 });
